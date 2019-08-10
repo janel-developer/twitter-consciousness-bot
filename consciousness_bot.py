@@ -14,10 +14,7 @@ def get_twinspiration():
     print("Error while fetching data from DB", error)
   finally:
     # closing database connection.
-    if(connection):
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
+    db_connect.close_db(connection)
   return twinspirations[0]
 
 # Updates the last_sent field of the record to now for the message that was sent in the status
@@ -31,10 +28,7 @@ def update_last_sent(id):
     print("Error while updating last_sent", error)
   finally:
     # closing database connection.
-    if(connection):
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
+    db_connect.close_db(connection)
 
 
 twinspiration = get_twinspiration()
@@ -47,5 +41,5 @@ message = twinspiration[1]
 api = twitter_auth.auth()
 # Call the update_status tweepy api
 api.update_status(message)
-print(f'Send message: {message}')
+print(f'Sent message: {message}')
 update_last_sent(id)

@@ -17,20 +17,21 @@ def connect_to_db(username=DBUSER, pw=DBPW, dbname=TWITTERDB):
         cursor = connection.cursor()
         cursor.execute("SELECT version();")
         record = cursor.fetchone()
-        print("You are connected to - ", record, "\n")
-        cursor.execute(
+        if record:
+            print("You are connected to the database \n")
+            cursor.execute(
             """SELECT table_name FROM  information_schema.tables WHERE table_schema = 'public'""")
 
     except (Exception, psycopg2.Error) as error:
         print("Error while connecting to PostgreSQL", error)
         # closing database connection.
-        close_db(connection, cursor)
+        close_db(connection)
     return connection
 
 
-def close_db(connection, cursor):
+def close_db(connection):
     # closing database connection.
     if(connection):
-        cursor.close()
+        connection.cursor().close()
         connection.close()
-        print("PostgreSQL connection is closed")
+        print("Database connection is closed")
