@@ -40,10 +40,10 @@ The bot assumes the following environment variables are set for authentication (
 
 The create_db.py module is included to create and populate the 'twinspirations' table. This table will store your inspirational messages, along with a self-incrementing id and a last_sent date field. The idea is that the bot will cycle through these messages, sending one each time it is run, and updating last_sent when it posts a message as a status (to put it to the back of the queue).
 
-Add your own messages (a comma-separated list of strings) to the create_db.py file, in the call to the populate_twinspirations function.
+The create_db.py populate_twinspirations function will read a list of messages from a file called "twinspirations.txt", which is assumed to be in the same directory. You can create this file and add your own messages (one on each line), then run the create_db.py file anytime to add new messages. If you have already run it once, the table will already exist, but that's OK. A message will be shown to indicate that, and the table will still be updated with your new messages.
 
-Run ```python create_db.py``` to create the table and populate it after you have added messages.
+Run `python create_db.py` to create the table and populate it after you have added messages. Run again any time that you modify the twinspirations.txt file to add new messages to the table (remember to delete messages from twinspirations.txt that you have already added to the table).
 
 ## Running the bot
 
-When you run ```python consciousness_bot.py``` it will get the oldest message from the database table, set it for your status, and update the last_sent in the record.
+When you run `python consciousness_bot.py` it will get the oldest message from the database table, set it for your status, and update the last_sent in the record.
